@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ShoppingApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="third_description">Get high quality products \n for the best prices</string>
+    <string name="first_description">Open the app anytime, search \n for your desired product</string>
+    <string name="second_description">Choose the product you want \n and make the payment.</string>
+    <string name="choose_and_checkout">Choose and checkout</string>
+</resources>
