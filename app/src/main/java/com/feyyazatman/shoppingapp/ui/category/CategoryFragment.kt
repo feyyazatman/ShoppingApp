@@ -8,17 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.feyyazatman.shoppingapp.R
 import com.feyyazatman.shoppingapp.data.model.ProductItem
 import com.feyyazatman.shoppingapp.databinding.FragmentCategoryBinding
 import com.feyyazatman.shoppingapp.ui.category.adapter.CategoryAdapter
 import com.feyyazatman.shoppingapp.ui.category.adapter.OnProductClickListener
 import com.feyyazatman.shoppingapp.ui.category.viewmodel.CategoryViewmodel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -49,6 +44,7 @@ class CategoryFragment : Fragment(), OnProductClickListener {
                             submitList(it)
                         }
                     }
+
                 }
             }
         }

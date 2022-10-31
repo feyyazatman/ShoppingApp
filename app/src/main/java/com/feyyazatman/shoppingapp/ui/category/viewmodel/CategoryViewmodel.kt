@@ -32,7 +32,6 @@ class CategoryViewmodel @Inject constructor(private val categoryReposityory: Cat
         private fun getProducts() {
             viewModelScope.launch(Dispatchers.IO) {
                 _uiState.value = ProductUiState(isLoading = true)
-                delay(500)
                 categoryReposityory.getAllProducts().enqueue(object : Callback<List<ProductItem>> {
                     override fun onResponse(call: Call<List<ProductItem>>, response: Response<List<ProductItem>>) {
                         if (response.isSuccessful) {
@@ -59,3 +58,4 @@ data class ProductUiState(
     val products: List<ProductItem>? = null,
     val error: String? = null
 )
+

@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.feyyazatman.shoppingapp.R
 import com.feyyazatman.shoppingapp.databinding.FragmentDetailBinding
 import com.feyyazatman.shoppingapp.ui.detail.viewmodel.DetailViewmodel
 import kotlinx.coroutines.launch
@@ -51,10 +53,16 @@ class DetailFragment : Fragment() {
             ivRemove.setOnClickListener {
                 viewModel.decreaseAmount()
             }
+            btnBack.setOnClickListener {
+                navigateBack()
+            }
         }
     }
 
 
+    fun navigateBack() {
+        this.findNavController().navigate(R.id.action_detailFragment_to_categoryFragment)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

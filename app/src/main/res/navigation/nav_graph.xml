@@ -32,5 +32,8 @@
         <argument
             android:name="product_item"
             app:argType="com.feyyazatman.shoppingapp.data.model.ProductItem" />
+        <action
+            android:id="@+id/action_detailFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
 </navigation>

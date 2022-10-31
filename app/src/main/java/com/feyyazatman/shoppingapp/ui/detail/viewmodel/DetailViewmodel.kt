@@ -26,4 +26,5 @@ class DetailViewmodel : ViewModel() {
             }
         }
     }
+
 }

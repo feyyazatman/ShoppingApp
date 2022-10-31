@@ -17,6 +17,18 @@
         android:layout_marginTop="8dp">
 
 
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@null"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitleCategory"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvTitleCategory" />
+
+
         <TextView
             android:id="@+id/tvTitleCategory"
             android:layout_width="wrap_content"
@@ -25,8 +37,8 @@
             android:textSize="16sp"
             android:padding="4dp"
             android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnBack"
             android:text="Product Detail"/>
 
 
