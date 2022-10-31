@@ -28,9 +28,14 @@ object RemoteDataModule {
 
     @Provides
     @Singleton
-    fun provideBaseUrl() = Constants.BASE_URL
+    fun provideBaseUrl() : String {
+        return Constants.BASE_URL
+    }
+
 
     @Provides
     @Singleton
-    fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
+    fun provideGsonConverterFactory(): GsonConverterFactory {
+        return GsonConverterFactory.create()
+    }
 }

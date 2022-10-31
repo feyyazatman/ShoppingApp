@@ -1,0 +1,61 @@
+package com.feyyazatman.shoppingapp.ui.category.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.feyyazatman.shoppingapp.data.model.ProductItem
+import com.feyyazatman.shoppingapp.data.repository.Category.CategoryReposityory
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import javax.inject.Inject
+
+@HiltViewModel
+class CategoryViewmodel @Inject constructor(private val categoryReposityory: CategoryReposityory) : ViewModel() {
+
+
+        private val _uiState = MutableStateFlow(ProductUiState())
+        val uiState: StateFlow<ProductUiState> = _uiState
+
+
+
+        init {
+            getProducts()
+        }
+
+        private fun getProducts() {
+            viewModelScope.launch(Dispatchers.IO) {
+                _uiState.value = ProductUiState(isLoading = true)
+                categoryReposityory.getAllProducts().enqueue(object : Callback<List<ProductItem>> {
+                    override fun onResponse(call: Call<List<ProductItem>>, response: Response<List<ProductItem>>) {
+                        if (response.isSuccessful) {
+                            response.body()?.let {
+                                val updateProductList = it
+                                _uiState.value = _uiState.value.copy(isLoading = false, products = updateProductList)
+                            } ?: kotlin.run {
+                                _uiState.value = uiState.value.copy(error = response.message())
+                            }
+                        } else _uiState.value = uiState.value.copy(error = response.message())
+                    }
+
+                    override fun onFailure(call: Call<List<ProductItem>>, t: Throwable) {
+                        _uiState.value = _uiState.value.copy(error = t.message.toString())
+                    }
+
+                })
+            }
+        }
+}
+
+data class ProductUiState(
+    val isLoading: Boolean = false,
+    val products: List<ProductItem>? = null,
+    val error: String? = null
+)
+
