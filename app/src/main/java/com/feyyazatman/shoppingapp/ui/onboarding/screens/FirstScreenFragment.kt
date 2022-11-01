@@ -38,6 +38,7 @@ class FirstScreenFragment : Fragment() {
             tvSkip.setOnClickListener {
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
+                activity?.finish()
             }
         }
     }
