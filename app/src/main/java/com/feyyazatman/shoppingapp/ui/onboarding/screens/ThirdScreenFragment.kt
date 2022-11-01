@@ -38,6 +38,7 @@ class ThirdScreenFragment : Fragment() {
             btnFinish.setOnClickListener {
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
+                activity?.finish()
             }
         }
     }

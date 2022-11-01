@@ -3,11 +3,9 @@ package com.feyyazatman.shoppingapp.ui.category.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.feyyazatman.shoppingapp.data.model.ProductItem
-import com.feyyazatman.shoppingapp.data.repository.Category.CategoryReposityory
+import com.feyyazatman.shoppingapp.data.repository.category.CategoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -17,7 +15,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryViewmodel @Inject constructor(private val categoryReposityory: CategoryReposityory) : ViewModel() {
+class CategoryViewmodel @Inject constructor(private val categoryRepository: CategoryRepository) : ViewModel() {
 
 
         private val _uiState = MutableStateFlow(ProductUiState())
@@ -32,7 +30,7 @@ class CategoryViewmodel @Inject constructor(private val categoryReposityory: Cat
         private fun getProducts() {
             viewModelScope.launch(Dispatchers.IO) {
                 _uiState.value = ProductUiState(isLoading = true)
-                categoryReposityory.getAllProducts().enqueue(object : Callback<List<ProductItem>> {
+                categoryRepository.getAllProducts().enqueue(object : Callback<List<ProductItem>> {
                     override fun onResponse(call: Call<List<ProductItem>>, response: Response<List<ProductItem>>) {
                         if (response.isSuccessful) {
                             response.body()?.let {
