@@ -84,7 +84,9 @@ class LoginFragment : Fragment() {
             .setTitle("Service Request Result")
             .setMessage(message + "\n" + "\n" + statement)
             .setNeutralButton("Okey") { _, _ ->
-                findNavController().navigate(R.id.action_authFragment_to_categoryFragment)
+                if (message == "Login Success") {
+                    findNavController().navigate(R.id.action_authFragment_to_categoryFragment)
+                }
             }.create()
 
     }
