@@ -39,6 +39,7 @@
         <activity
             android:name=".main.MainActivity"
             android:theme="@style/Theme.ShoppingApp.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

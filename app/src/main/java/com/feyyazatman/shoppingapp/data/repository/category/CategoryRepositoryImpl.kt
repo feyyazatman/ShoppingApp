@@ -11,4 +11,8 @@ class CategoryRepositoryImpl constructor(
     override suspend fun getAllProducts(): Call<List<ProductItem>> {
         return apiService.getAllProducts()
     }
+
+    override suspend fun getAllCategories(): Call<List<String>> {
+        return apiService.getAllCategories()
+    }
 }

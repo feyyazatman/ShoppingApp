@@ -12,4 +12,7 @@ interface ApiService {
 
     @GET("product/{id}")
     fun getProductById(@Path("{id}") id: String) : Call<ProductItem>
+
+    @GET("products/categories")
+    fun getAllCategories() : Call<List<String>>
 }
