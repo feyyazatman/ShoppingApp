@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.feyyazatman.shoppingapp.R
 import com.feyyazatman.shoppingapp.databinding.FragmentDetailBinding
 import com.feyyazatman.shoppingapp.ui.detail.viewmodel.DetailViewmodel
 import kotlinx.coroutines.launch
@@ -61,7 +60,8 @@ class DetailFragment : Fragment() {
 
 
     fun navigateBack() {
-        this.findNavController().navigate(R.id.action_detailFragment_to_categoryFragment)
+        val action = findNavController().previousBackStackEntry?.destination?.id
+        action?.let { this.findNavController().navigate(it) }
     }
 
     override fun onDestroyView() {

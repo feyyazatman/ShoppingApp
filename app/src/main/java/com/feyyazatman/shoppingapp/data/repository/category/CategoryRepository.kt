@@ -6,4 +6,6 @@ import retrofit2.Call
 interface CategoryRepository {
 
     suspend fun getAllProducts() : Call<List<ProductItem>>
+
+    suspend fun getAllCategories() : Call<List<String>>
 }
