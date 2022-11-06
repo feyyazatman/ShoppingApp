@@ -21,3 +21,16 @@ data class ProductItem(
     @SerializedName("title")
     val title: String?
 ) : Parcelable
+
+
+
+data class BasketProductItem(
+    val category: String?,
+    val description: String?,
+    val id: String?,
+    val image: String?,
+    val price: Double,
+    val title: String?,
+    val amount : Long?, // try
+    val subTotal: Double = 0.0,
+)

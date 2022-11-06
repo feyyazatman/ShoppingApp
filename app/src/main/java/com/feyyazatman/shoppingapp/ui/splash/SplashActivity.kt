@@ -29,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
         activityScope.launch {
-            delay(3000)
+            delay(2000)
 
             if (isFirstTime) {
                 val editor = onBoarding.edit()
