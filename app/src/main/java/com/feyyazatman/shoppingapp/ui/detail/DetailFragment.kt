@@ -71,7 +71,7 @@ class DetailFragment : Fragment() {
             launch {
                 viewModel.subTotal.collect {
                     if (it != null) {
-                        binding.tvTotalAmount.text = it.format(2)
+                        binding.tvTotalAmount.text = "$" + it.format(2)
                     }
                 }
             }

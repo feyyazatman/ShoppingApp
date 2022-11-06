@@ -40,7 +40,7 @@ class DetailViewmodel @Inject constructor(private val basketRepository: BasketRe
                     price = productItem.price!!.toDouble(),
                     title = productItem.title,
                     amount = _amount.value.toLong(),
-                    subTotal = _amount.value.toDouble() * productItem.price!!
+                    subTotal = _amount.value.toDouble() * productItem.price
                 )
             )
             getSubTotalPrice()

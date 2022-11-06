@@ -52,7 +52,7 @@ class BasketViewmodel @Inject constructor(private val basketRepository: BasketRe
         }
     }
 
-    fun getSubTotal(price : Double) {
+    private fun getSubTotal(price : Double) {
         _subTotal.value = price + _subTotal.value
     }
 
@@ -70,10 +70,12 @@ class BasketViewmodel @Inject constructor(private val basketRepository: BasketRe
 
     fun decreaseAmount(basketProductItem: BasketProductItem) {
         viewModelScope.launch {
-            _amount.value -= 1
-            basketRepository.decrementBasketData(basketProductItem)
-            _subTotal.value = _subTotal.value - basketProductItem.price
-            getToCart()
+            if (_amount.value > 1) {
+                _amount.value -= 1
+                basketRepository.decrementBasketData(basketProductItem)
+                _subTotal.value = _subTotal.value - basketProductItem.price
+                getToCart()
+            }
         }
     }
 }

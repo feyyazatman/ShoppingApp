@@ -32,7 +32,7 @@ class SearchFragment : Fragment(), OnFilteredProductClickListener, OnFilteredCat
 
     override fun onStart() {
         super.onStart()
-        viewModel.getSubTotalPrice()
+        viewModel.getSubTotalPrice()  // not working onCreate() method when navigate back basketFragment to searchFragment()
     }
 
     override fun onCreateView(
@@ -78,7 +78,7 @@ class SearchFragment : Fragment(), OnFilteredProductClickListener, OnFilteredCat
             launch {
                 viewModel.subTotal.collect {
                     if (it != null) {
-                        binding.tvTotalAmount.text = it.format(2)
+                        binding.tvTotalAmount.text = "$" + it.format(2)
                     }
                 }
             }

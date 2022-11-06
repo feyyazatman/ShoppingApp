@@ -1,11 +1,9 @@
 package com.feyyazatman.shoppingapp.ui.basket
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
@@ -21,10 +19,8 @@ import com.feyyazatman.shoppingapp.ui.basket.adapter.BottomSheetAdapter
 import com.feyyazatman.shoppingapp.ui.basket.adapter.OnBasketItemClickListener
 import com.feyyazatman.shoppingapp.ui.basket.viewmodel.BasketViewmodel
 import com.feyyazatman.shoppingapp.ui.utils.Extensions.format
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -47,7 +43,6 @@ class BasketFragment : Fragment(), OnBasketItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var subTotalVal = 0.0
         lifecycleScope.launchWhenResumed {
             launch {
                 viewModel.uiState.collect {
@@ -57,9 +52,9 @@ class BasketFragment : Fragment(), OnBasketItemClickListener {
                                 binding.rvBasket.isVisible = true
                                 binding.rvBasket.adapter =
                                     BottomSheetAdapter(this@BasketFragment).apply {
-                                        submitList(it.result.map {
-                                            it.copy(
-                                                amount = (it.subTotal / it.price).toLong()
+                                        submitList(it.result.map { basketProductItem ->
+                                            basketProductItem.copy(
+                                                amount = (basketProductItem.subTotal / basketProductItem.price).toLong()
                                             )
                                         })
                                     }
@@ -81,7 +76,7 @@ class BasketFragment : Fragment(), OnBasketItemClickListener {
             }
             launch {
                 viewModel.subTotal.collect{
-                    binding.tvSubtotal.text = it.format(2)
+                    binding.tvSubtotal.text = "$" + it.format(2)
                 }
             }
 
@@ -105,7 +100,11 @@ class BasketFragment : Fragment(), OnBasketItemClickListener {
             .setPositiveButton("Yes") { _, _ ->
                 viewModel.deleteAllBasketData()
                 Toast.makeText(requireContext(), "Payment Successful", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_basketFragment_to_categoryFragment)
+                lifecycleScope.launch {
+                    delay(200)
+                    findNavController().navigate(R.id.action_basketFragment_to_categoryFragment)
+                }
+
             }
             .setNegativeButton("No") { _, _ -> }.create()
 

@@ -31,7 +31,7 @@ class ProfileFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModelProfile.getSubTotalPrice()
+        viewModelProfile.getSubTotalPrice() // not working onCreate() method when navigate back basketFragment to ProfileFragment()
     }
 
     override fun onCreateView(
@@ -66,7 +66,7 @@ class ProfileFragment : Fragment() {
             launch {
                 viewModelProfile.subTotal.collect {
                     if (it != null) {
-                        binding.tvTotalAmount.text = it.format(2)
+                        binding.tvTotalAmount.text = "$" + it.format(2)
                     }
                 }
             }

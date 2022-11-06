@@ -28,10 +28,12 @@ class CategoryFragment : Fragment(), OnProductClickListener {
     private val viewModel by viewModels<CategoryViewmodel>()
 
 
+
     override fun onStart() {
         super.onStart()
-        viewModel.getSubTotalPrice()
+        viewModel.getSubTotalPrice() // not working onCreate() method when navigate back basketFragment to CategoryFragment()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,7 +58,7 @@ class CategoryFragment : Fragment(), OnProductClickListener {
             launch {
                 viewModel.subTotal.collect {
                     if (it != null) {
-                        binding.tvTotalAmount.text = it.format(2)
+                        binding.tvTotalAmount.text = "$" + it.format(2)
                     }
                 }
             }
