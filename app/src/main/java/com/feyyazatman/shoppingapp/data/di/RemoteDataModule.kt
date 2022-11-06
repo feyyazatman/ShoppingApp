@@ -48,6 +48,5 @@ object RemoteDataModule {
     @Provides
     @Singleton
     fun provideFirebaseFireStore() = FirebaseFirestore.getInstance()
-
-
+    
 }
