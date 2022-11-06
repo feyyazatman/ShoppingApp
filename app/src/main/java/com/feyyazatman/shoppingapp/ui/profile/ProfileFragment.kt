@@ -14,6 +14,7 @@ import com.feyyazatman.shoppingapp.data.remote.utils.Resource
 import com.feyyazatman.shoppingapp.databinding.FragmentProfileBinding
 import com.feyyazatman.shoppingapp.ui.authentication.viewmodel.AuthViewmodel
 import com.feyyazatman.shoppingapp.ui.profile.viewmodel.ProfileViewmodel
+import com.feyyazatman.shoppingapp.ui.utils.Extensions.format
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -27,6 +28,12 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
+
+    override fun onStart() {
+        super.onStart()
+        viewModelProfile.getSubTotalPrice()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,7 +45,6 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         lifecycleScope.launchWhenResumed {
             launch {
@@ -56,10 +62,23 @@ class ProfileFragment : Fragment() {
                     }
                 }
             }
+
+            launch {
+                viewModelProfile.subTotal.collect {
+                    if (it != null) {
+                        binding.tvTotalAmount.text = it.format(2)
+                    }
+                }
+            }
         }
 
-        binding.btnLogout.setOnClickListener {
-            showAlertDialog().show()
+        binding.apply {
+            btnLogout.setOnClickListener {
+                showAlertDialog().show()
+            }
+            btnMarket.setOnClickListener {
+                findNavController().navigate(R.id.action_profileFragment_to_basketFragment)
+            }
         }
     }
 

@@ -2,9 +2,11 @@ package com.feyyazatman.shoppingapp.ui.profile.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.feyyazatman.shoppingapp.data.model.BasketProductItem
 import com.feyyazatman.shoppingapp.data.model.User
 import com.feyyazatman.shoppingapp.data.remote.utils.Resource
 import com.feyyazatman.shoppingapp.data.repository.authentication.AuthRepository
+import com.feyyazatman.shoppingapp.data.repository.basket.BasketRepository
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -15,8 +17,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewmodel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val basketRepository: BasketRepository
 ) : ViewModel() {
+
+    private val _subTotal = MutableStateFlow<Double?>(0.0)
+    val subTotal: StateFlow<Double?> = _subTotal
 
 
     private val _uiState = MutableStateFlow<Resource<User>?>(null)
@@ -26,10 +32,10 @@ class ProfileViewmodel @Inject constructor(
         get() = authRepository.currentUser
 
     init {
+        println("profile viewmodel calisti")
         currentUser?.let {
             getFirestoreData(it.uid)
         }
-
     }
 
     private fun getFirestoreData(uuid : String) {
@@ -37,6 +43,13 @@ class ProfileViewmodel @Inject constructor(
             _uiState.value = Resource.Loading
             val result = authRepository.getUserData(uuid)
             _uiState.value = result
+        }
+    }
+
+     fun getSubTotalPrice() {
+        viewModelScope.launch {
+            val result = basketRepository.getSubTotal()
+            _subTotal.value = result.toDouble()
         }
     }
 

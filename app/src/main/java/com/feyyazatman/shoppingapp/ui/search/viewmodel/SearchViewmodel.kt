@@ -3,6 +3,7 @@ package com.feyyazatman.shoppingapp.ui.search.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.feyyazatman.shoppingapp.data.model.ProductItem
+import com.feyyazatman.shoppingapp.data.repository.basket.BasketRepository
 import com.feyyazatman.shoppingapp.data.repository.category.CategoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -11,13 +12,16 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import retrofit2.Call
-import javax.inject.Inject
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewmodel @Inject constructor(private val categoryRepository: CategoryRepository) :
+class SearchViewmodel @Inject constructor(
+    private val categoryRepository: CategoryRepository,
+    private val basketRepository: BasketRepository
+) :
     ViewModel() {
 
     private val _searchState = MutableStateFlow(
@@ -29,7 +33,12 @@ class SearchViewmodel @Inject constructor(private val categoryRepository: Catego
     val searchState: StateFlow<SearchDataState> = _searchState
 
 
+    private val _subTotal = MutableStateFlow<Double?>(0.0)
+    val subTotal: StateFlow<Double?> = _subTotal
+
+
     init {
+        println("search viewmodel calisti")
         getAllProducts()
         getAllCategories()
     }
@@ -116,6 +125,14 @@ class SearchViewmodel @Inject constructor(private val categoryRepository: Catego
             })
         }
     }
+
+        fun getSubTotalPrice() {
+        viewModelScope.launch {
+            val result = basketRepository.getSubTotal()
+            _subTotal.value = result.toDouble()
+        }
+    }
+
 }
 
 data class SearchDataState(
