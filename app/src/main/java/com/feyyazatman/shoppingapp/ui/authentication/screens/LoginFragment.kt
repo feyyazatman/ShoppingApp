@@ -1,11 +1,11 @@
 package com.feyyazatman.shoppingapp.ui.authentication.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -26,6 +26,7 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<AuthViewmodel>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,11 +63,6 @@ class LoginFragment : Fragment() {
                         }
                         else -> {}
                     }
-                }
-            }
-            launch {
-                if (viewModel.currentUser != null) {
-                    findNavController().navigate(R.id.action_authFragment_to_categoryFragment)
                 }
             }
         }

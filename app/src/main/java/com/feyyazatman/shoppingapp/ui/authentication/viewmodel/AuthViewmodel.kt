@@ -30,9 +30,6 @@ class AuthViewmodel @Inject constructor(
     val uiEvent: SharedFlow<RegisterViewEvent> = _uiEvent
 
 
-    val currentUser: FirebaseUser?
-        get() = authRepository.currentUser
-
 
     fun signIn(email: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
