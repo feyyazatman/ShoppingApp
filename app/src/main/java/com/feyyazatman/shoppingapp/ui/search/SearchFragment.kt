@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.feyyazatman.shoppingapp.R
 import com.feyyazatman.shoppingapp.data.model.ProductItem
 import com.feyyazatman.shoppingapp.databinding.FragmentSearchBinding
 import com.feyyazatman.shoppingapp.ui.search.adapter.OnFilteredCategoryClickListener
@@ -16,6 +17,7 @@ import com.feyyazatman.shoppingapp.ui.search.adapter.OnFilteredProductClickListe
 import com.feyyazatman.shoppingapp.ui.search.adapter.SearchCategoryAdapter
 import com.feyyazatman.shoppingapp.ui.search.adapter.SearchProductAdapter
 import com.feyyazatman.shoppingapp.ui.search.viewmodel.SearchViewmodel
+import com.feyyazatman.shoppingapp.ui.utils.Extensions.format
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -28,6 +30,11 @@ class SearchFragment : Fragment(), OnFilteredProductClickListener, OnFilteredCat
     private val binding get() = _binding!!
 
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.getSubTotalPrice()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,7 +45,6 @@ class SearchFragment : Fragment(), OnFilteredProductClickListener, OnFilteredCat
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         searchProduct()
         lifecycleScope.launchWhenResumed {
             launch {
@@ -68,6 +74,17 @@ class SearchFragment : Fragment(), OnFilteredProductClickListener, OnFilteredCat
                     }
                 }
             }
+
+            launch {
+                viewModel.subTotal.collect {
+                    if (it != null) {
+                        binding.tvTotalAmount.text = it.format(2)
+                    }
+                }
+            }
+        }
+        binding.btnMarket.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_basketFragment)
         }
     }
 
