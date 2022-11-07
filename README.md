@@ -1,30 +1,26 @@
 
 # Shopping App
 
-## ✨ Proje Görselleri
+## ✨ Project Images
 | Main Screens | Basket |  Authentication | 
 |:-:|:-:|:-:|
 | ![](media/gif1.gif) | ![](media/gif2.gif) | ![](media/gif3.gif) |
 
 
-## 🌟 Proje Hakkında
+## 🌟 About The Project
 
-Shopping App bir alışveriş uygulamasıdır. Uygulama içersinde gösterilen ürünler için 
-Fakestore API kullanılmaktadır. Uygulamaya FirebaseAuth kullanarak kayıt olabilir, ürünleri 
-kategorilere göre listeleyebilir, ürün detaylarını görebilir ve ürünleri sepete 
-ekleyebilirsiniz.
+This project is a shopping application. Fake Store API is used for the products shown in the application. You can register for the application using FirebaseAuth, list the products by categories, see the product details and add the products to the cart.
 
   
-## 📦 Proje Mimarisi
+## 📦 Architecture
 
 <img src="/media/mvvm.png" width="500" height="500"/>
 
-Uygulama kotlin programlama dilinde geliştirilmiştir. Bu uygulamanın geliştirilmesinde 
-MVVM (Model-View-ViewModel) Architecture Pattern ve Uygulama içersinde veriye erişimin ve 
-yönetimin tek noktaya indirilmesini sağlamak için Repository Design Pattern kullanılmıştır.
-## 🧰 Kullanılan Kütüphaneler
 
-#### Mimari Compenentler ve Jetpack Kütüphaneleri
+The application was developed with the Kotlin programming language. MVVM (Model-View-ViewModel)Architecture Pattern and Repository Design Pattern were used for data access and data management to be in a single point within the application.
+## 🧰 Libraries Used
+
+#### Architecture Compenents and Jetpack Libraries
 
 * [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) 
 * [Navigation](https://developer.android.com/guide/navigation)
@@ -33,7 +29,7 @@ yönetimin tek noktaya indirilmesini sağlamak için Repository Design Pattern k
 * [View Binding](https://developer.android.com/topic/libraries/view-binding)
 * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
 
-#### Third Party Kütüphaneler
+#### Third Party Libraries
 
 * [Kotlin Coroutines](https://developer.android.com/kotlin/flow)
 * [Flow](https://developer.android.com/kotlin/flow)
@@ -46,18 +42,18 @@ yönetimin tek noktaya indirilmesini sağlamak için Repository Design Pattern k
 * [Cloud Firestore](https://pub.dev/packages/cloud_firestore)
     
   
-## 📃 Proje Özellikleri
+## 📃 Features
 
-- Kullanıcı FirebaseAuth ile kayıt olabilir.
-- Dilediği ürünün detay bilgileri detay sayfasında görebilir.
-- Dilediği ürünü belirlediği miktar kadar sepete ekleyebilir.
-- Sepete eklenen ürünlerin verileri firestore'da her kullanıcı için ayrı bir biçimde tutulur.
-- Ürün miktarını sepet sayfasında ayarlayabilir.
-- Sepet sayfasında satın alma butonu ile işlem gerçekleştirebilir. Bu şekilde sepetin boşaltılmasını sağlayabilir.
-- Kullanıcı profil sayfasında logout butonuna basarak hesabından çıkabilir. 
+- User can register with FirebaseAuth.
+- You can see the detail information of the desired product on the detail page.
+- You can add the desired product to the cart. 
+- The data of the products added to the cart are kept separately for each user in the firestore.
+- You can set the product quantity on the cart page.
+- You can perform transactions with the buy button on the cart page. In this way, it can ensure that the basket is emptied.
+- The user can exit the account by pressing the logout button on the profile page.
 
   
-## 📩 İletişim
+## 📩 Contact
 
 - [Linkedin](https://www.linkedin.com/in/feyyazatman/)
 - Email : feyyaz.atman.00@gmail.com
